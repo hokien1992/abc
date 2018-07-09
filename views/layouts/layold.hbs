@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {{# if admin}}
+      <title>Matrix Admin</title><meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      
+      {{# if login }}
+      <link rel="stylesheet" href="admin/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="admin/css/bootstrap-responsive.min.css" />
+      <link rel="stylesheet" href="admin/css/matrix-login.css" />
+      <link href="admin/font-awesome/css/font-awesome.css" rel="stylesheet" />
+      {{/if}}
+      {{# if home }}
+      <link rel="stylesheet" href="css/bootstrap.min.css" />
+      <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+      <link rel="stylesheet" href="css/colorpicker.css" />
+      <link rel="stylesheet" href="css/datepicker.css" />
+      {{!-- view table --}}
+
+      <link rel="stylesheet" href="css/uniform.css" />
+      <link rel="stylesheet" href="css/select2.css" />
+      {{!-- end view table --}}
+      <link rel="stylesheet" href="css/fullcalendar.css" />
+      <link rel="stylesheet" href="css/matrix-style.css" />
+      <link rel="stylesheet" href="css/matrix-media.css" />
+      <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+      <link rel="stylesheet" href="css/bootstrap-wysihtml5.css" />
+      {{/if}}
+      
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+    {{else}}
+      <title>{{title}}</title>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+      <link rel='stylesheet' href='/stylesheets/style.css' />
+    {{/if}}
+    
+  </head>
+  <body>
+    {{# if admin}}
+      {{# if home}}
+      {{> adminheader}}
+      {{/if}}
+    {{else}}
+      {{> header}}
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+      <div class="container">
+    {{/if}}
+    
+
+      {{{body}}}
+    {{# if admin}}
+      {{# if login}}
+        <script src="admin/js/jquery.min.js"></script>  
+        <script src="admin/js/matrix.login.js"></script>
+      {{/if}}
+      {{# if home}}
+      {{> adminfooter}}
+        <script src="js/excanvas.min.js"></script> 
+        <script src="js/jquery.min.js"></script> 
+        <script src="js/jquery.ui.custom.js"></script> 
+        <script src="js/bootstrap.min.js"></script> 
+        <script src="js/jquery.flot.min.js"></script> 
+        <script src="js/jquery.flot.resize.min.js"></script> 
+        <script src="js/jquery.peity.min.js"></script> 
+        <script src="js/fullcalendar.min.js"></script> 
+        <script src="js/matrix.js"></script> 
+        <script src="js/matrix.tables.js"></script>
+        {{!-- ======================================= table --}}
+        <script src="js/matrix.dashboard.js"></script> 
+        <script src="js/jquery.gritter.min.js"></script> 
+        <script src="js/matrix.interface.js"></script> 
+        <script src="js/matrix.chat.js"></script> 
+        <script src="js/jquery.validate.js"></script> 
+        <script src="js/matrix.form_validation.js"></script> 
+        <script src="js/jquery.wizard.js"></script> 
+        <script src="js/jquery.uniform.js"></script> 
+        <script src="js/select2.min.js"></script> 
+        <script src="js/matrix.popover.js"></script> 
+        <script src="js/jquery.dataTables.min.js"></script> 
+        
+        <script src="js/bootstrap-colorpicker.js"></script> 
+        <script src="js/bootstrap-datepicker.js"></script> 
+        <script src="js/jquery.toggle.buttons.js"></script> 
+        <script src="js/masked.js"></script> 
+
+
+        <script src="js/matrix.js"></script> 
+        <script src="js/matrix.form_common.js"></script> 
+        <script src="js/wysihtml5-0.3.0.js"></script> 
+        <script src="js/jquery.peity.min.js"></script> 
+        <script src="js/bootstrap-wysihtml5.js"></script> 
+<script>
+	$('.textarea_editor').wysihtml5();
+</script>
+        <script type="text/javascript">
+          // This function is called from the pop-up menus to transfer to
+          // a different page. Ignore if the value returned is a null string:
+          function goPage (newURL) {
+
+              // if url is empty, skip the menu dividers and reset the menu selection to default
+              if (newURL != "") {
+              
+                  // if url is "-", it is this page -- reset the menu:
+                  if (newURL == "-" ) {
+                      resetMenu();            
+                  } 
+                  // else, send page to designated URL            
+                  else {  
+                    document.location.href = newURL;
+                  }
+              }
+          }
+
+        // resets the menu selection upon entry to this page:
+        function resetMenu() {
+          document.gomenu.selector.selectedIndex = 2;
+        }
+        </script>
+      {{/if}}
+    {{else}}
+    
+    {{/if}}
+  </body>
+</html>

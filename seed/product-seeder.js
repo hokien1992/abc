@@ -1,6 +1,6 @@
-var Product = require('../models/product');
-var mongoose = require('mongoose');
-mongoose.connect('localhost:27017/shoppingcart');
+// var Product = require('../models/product');
+// var mongoose = require('mongoose');
+// mongoose.connect('localhost:27017/shoppingcart');
 
 // var products = [
 // new Product({
@@ -8,28 +8,7 @@ mongoose.connect('localhost:27017/shoppingcart');
 //     title:'Game Win',
 //     description:'Mongo Game !!!',
 //     detail:"Detail Mongo",
-//     price:12000
-// }),
-// new Product({
-//     imagePath:'../images/game.png',
-//     title:'Game Win1',
-//     description:'Mongo Game !!!',
-//     detail:"Detail Mongo",
-//     price:12000
-// }),
-// new Product({
-//     imagePath:'../images/game.png',
-//     title:'Game Win2',
-//     description:'Mongo Game !!!',
-//     detail:"Detail Mongo",
-//     price:12000
-// }),
-// new Product({
-//     imagePath:'../images/game.png',
-//     title:'Game Win3',
-//     description:'Mongo Game !!!',
-//     detail:"Detail Mongo",
-//     price:12000
+//     price:12345
 // })
 // ];
 // var done = 0;

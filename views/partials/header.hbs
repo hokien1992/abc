@@ -1,60 +1,83 @@
-<header>
-	<nav class="navbar navbar-default">
-	  <div class="container-fluid">
-	    <!-- Brand and toggle get grouped for better mobile display -->
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
-	      <a class="navbar-brand" href="/">Home</a>
-	    </div>
-	    <!-- Collect the nav links, forms, and other content for toggling -->
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	      <ul class="nav navbar-nav">
-	        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-	        <li><a href="#">Link</a></li>
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	            <li><a href="#">Action</a></li>
-	            <li><a href="#">Another action</a></li>
-	            <li><a href="#">Something else here</a></li>
-	            <li role="separator" class="divider"></li>
-	            <li><a href="#">Separated link</a></li>
-	            <li role="separator" class="divider"></li>
-	            <li><a href="#">One more separated link</a></li>
-	          </ul>
-	        </li>
-	      </ul>
-	      
-	      <ul class="nav navbar-nav navbar-right">
-	        <li> 
-						<a href="/shopping-cart/"><i class="icon-shopping-cart"></i> Giỏ hàng
-							<span class="badge">{{ session.cart.totalQty }}</span>
-						</a>
-					</li>
-	        <li class="dropdown">
 
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-	          				<i class="icon-user"></i> 
-							 Quan ly tai khoan<span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-							{{# if login }}
-	            <li><a href="/user/profile">Quản lý tài khoản</a></li>
-	            <li role="separator" class="divider"></li>
-	            <li><a href="/user/logout">Đăng xuất</a></li>
-							{{ else }}
-							<li><a href="/user/signup">Sign up</a></li>
-	            <li><a href="/user/signin">Sign in</a></li>
-							{{/if}}
-	          </ul>
-	        </li>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{title}}</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+	<link rel='stylesheet' href='/stylesheets/setmedia.css' />
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+</head>
+<body>
 
-	      </ul>
-	    </div><!-- /.navbar-collapse -->
-	  </div><!-- /.container-fluid -->
-	</nav>
-</header>
+    <div class="container">
+	<header class="header">
+		<div class="header_top">
+			<div class="col-sm-2">
+				<div class="logoTop">
+					<a href="" title="">
+						<img src="{{ opt.logo }}" alt="">
+					</a>
+				</div>
+			</div>
+		</div>
+		
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="hvr-rectangle-in navbar-brand" href="/">Home</a>
+				</div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#" class="hvr-rectangle-in">Giới thiệu</a></li>
+						<li><a href="#" class="hvr-rectangle-in">Link</a></li>
+						<li class="dropdown">
+							<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Kho giao diện Website <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Action</a></li>
+								<li><a href="#">Another action</a></li>
+								<li><a href="#">Something else here</a></li>
+							</ul>
+						</li>
+					</ul>
+					
+					<ul class="nav navbar-nav navbar-right">
+						<li> 
+							<a href="/shopping-cart/"><i class="icon-shopping-cart"></i> Giỏ hàng
+								<span class="badge">{{ session.cart.totalQty }}</span>
+							</a>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+											<i class="icon-user"></i> 
+								Quan ly tai khoan<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								{{# if login }}
+								<li><a href="/user/profile">Quản lý tài khoản</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="/user/logout">Đăng xuất</a></li>
+								{{ else }}
+								<li><a href="/user/signup">Sign up</a></li>
+								<li><a href="/user/signin">Sign in</a></li>
+								{{/if}}
+							</ul>
+						</li>
+
+					</ul>
+				</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+	</header>

@@ -1,8 +1,30 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+  color: rgb(125, 181, 201);
+  font-size: 14px;
 }
+/* Rectangle In */
+.thumbnail_pro{position: relative;border: 0px;}
+.div_caption{
+  width: 100%;
+  /* display: none; */
+  position: absolute;
+  transition: 1s ease;
+  opacity: 0;
+  transform: translate(0%, -50%);
+  -ms-transform: translate(0%, -50%);
+  top:50%;left: 0px;
+}
+.thumbnail_pro:hover img{
+  opacity: 0.3;
+}
+.thumbnail_pro:hover .div_caption{
+  opacity: 1 !important;
+  display: block !important;
+}
+.thumbnail_pro:hover .div_caption{display: block}
+.xemchitiet{position: absolute;left: 25px;}
+.xemdemo{position: absolute;right: 25px;}

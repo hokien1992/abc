@@ -1,0 +1,137 @@
+<script type="text/javascript" src="{{exit_id}}ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="{{exit_id}}ckeditor/adapters/jquery.js"></script>
+<div id="content">
+    <div id="content-header">
+        <div id="breadcrumb"> 
+            <a href="admin/index" title="Go to Home" class="tip-bottom">
+                <i class="icon-home"></i> Trang chủ
+            </a> 
+            <a href="#" class="tip-bottom">Thêm sản phẩm</a>
+        </div>
+    </div>
+    <form action="/admin/updateOption?_csrf={{ csrfToken }}" method="post" class="form-horizontal" enctype="multipart/form-data">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="col-xs-12 widget-content nopadding">
+                            <input type="text" class="hidden" name="_csrf" value="{{ csrfToken }}">
+                            <div class="control-group">
+                                <label class="control-label">Tiêu đề</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" placeholder="Tiêu đề" name="title" id="title" value="{{ result.title }}"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Slogan</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" placeholder="Slogan" name="slogan" id="slogan" value="{{ result.slogan }}"/>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 control-group">
+                                <label class="control-label">Logo</label>
+                                <div class="controls">
+                                    {{# if result.logo}}
+                                    <div class="logoOpt clearfix">
+                                        <a href="/admin/deleteimage/logo">
+                                            <i class="icon-remove"></i>
+                                        </a>
+                                        <img src="{{result.logo}}" class="logo" alt="" style="max-width:150px;height:auto;">
+                                    </div>
+                                    {{else}}
+                                        <input type="file" name="logo" class="file" id="file"/>
+                                    {{/if}}
+                                    
+                                </div>
+                            </div>
+                            <div class="col-sm-6 control-group">
+                                <label class="control-label">Favicon</label>
+                                <div class="controls">
+                                    {{# if result.favicon}}
+                                    <div class="logoOpt clearfix">
+                                        <a href="/admin/deleteimage/favicon">
+                                            <i class="icon-remove"></i>
+                                        </a>
+                                        <img src="{{result.favicon}}" class="favicon" alt="" style="max-width:150px;height:auto;">
+                                    </div>
+                                        
+                                    {{else}}
+                                        <input type="file" name="favicon" class="file" id="file"/>
+                                    {{/if}}
+                                    
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Địa chỉ top</label>
+                                <div class="controls" >
+                                     <textarea class="span11 description" placeholder="Địa chỉ" name="addressTop" id="addressTop"></textarea>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Địa chỉ</label>
+                                <div class="controls">
+                                    <textarea class="span11 detail" style="width:80%" placeholder="Địa chỉ" name="address" id="address"></textarea>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Seo Keyword</label>
+                                <div class="controls span11" >
+                                     <textarea class="span11 description" placeholder="Địa chỉ" name="seo_keyword" id="seo_keyword"></textarea>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Seo Description</label>
+                                <div class="controls span11" >
+                                     <textarea class="span11 description" placeholder="Địa chỉ" name="seo_description" id="seo_description"></textarea>
+                                </div>
+                            </div>
+                            <div class="control-label form-actions">
+                                <button type="submit" class="btn btn-success">Cập nhật</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+
+    $('#title').on('input', function(e){
+        e.preventDefault();
+        console.log(e.target.value);
+        console.log(this.value);
+        $('#alias').val(slugify(this.value));
+    });
+
+
+    CKEDITOR.replace('address', {
+        "extraPlugins" : "imagebrowser",
+        "imageBrowser_listUrl" : "/files"
+    });
+    CKEDITOR.replace( 'addressTop', {
+        toolbar: [
+            { name: 'document', items: [ 'Source', '-', 'NewPage', 'Preview', '-', 'Templates' ] },	// Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
+            [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ],			// Defines toolbar group without name.
+            '/',																					// Line break - next group will be placed in new line.
+            { name: 'basicstyles', items: [ 'Bold', 'Italic' ] }
+        ]
+    });
+    CKEDITOR.replace( 'seo_description', {
+        toolbar: [
+            { name: 'document', items: [ 'Source', '-', 'NewPage', 'Preview', '-', 'Templates' ] },	// Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
+            [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ],			// Defines toolbar group without name.
+            '/',																	// Line break - next group will be placed in new line.
+            { name: 'basicstyles', items: [ 'Bold', 'Italic' ] }
+        ]
+    });
+    CKEDITOR.replace( 'seo_keyword', {
+        toolbar: [
+            { name: 'document', items: [ 'Source', '-', 'NewPage', 'Preview', '-', 'Templates' ] },	// Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
+            [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ],			// Defines toolbar group without name.
+            '/',																	// Line break - next group will be placed in new line.
+            { name: 'basicstyles', items: [ 'Bold', 'Italic' ] }
+        ]
+    });
+</script>

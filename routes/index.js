@@ -1,26 +1,108 @@
+
 var express = require('express');
 var router = express.Router();
-// var csrf = require('csurf');
+var csrf = require('csurf');
 // var passport = require('passport');
+
 var Cart = require('../models/cart');
 var Product = require('../models/product');
 var Order = require('../models/order');
+var Option = require('../models/option')
+// ======================================================== mongodb
+var mongoose = require('mongoose');
+var mongo = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
+var assert = require('assert');
+var url = 'mongodb://localhost:27017/shoppingcart';
+// =====================================join table
+var MJ = require("mongo-fast-join"),
+mongoJoin = new MJ();
+// =====================================end join table
+
+// ======================================================== ckeditor
+var bodyParser = require('body-parser');
+var multer  =   require('multer');
+var fs = require('fs');
+var path = require('path');
+var crypto = require('crypto');
+// =======================================================end ckeditor
+// ============================ckeditor
+var storage = multer.diskStorage({
+  destination: 'public/upload/',
+  filename: function (req, file, cb) {
+    crypto.pseudoRandomBytes(16, function (err, raw) {
+      if (err) return cb(err)
+      cb(null, Math.floor(Math.random()*9000000000) + 1000000000 + path.extname(file.originalname))
+    })
+  }
+})
+var upload = multer({ storage: storage });
+// ============================end ckeditor
+
+
+// ===============================ckeditor
+router.get('/files', function (req, res) {
+  const images = fs.readdirSync('public/upload')
+  var sorted = []
+  for (let item of images){
+      if(item.split('.').pop() === 'png'
+      || item.split('.').pop() === 'jpg'
+      || item.split('.').pop() === 'jpeg'
+      || item.split('.').pop() === 'svg'){
+          var abc = {
+                "image" : "/upload/"+item,
+                "folder" : '/'
+          }
+          sorted.push(abc)
+      }
+  }
+  res.send(sorted);
+})
+
+router.post('/upload', upload.array('flFileUpload', 12), function (req, res, next) {
+    res.redirect('back');
+});
+
+router.post('/delete_file', function(req, res, next){
+  var url_del = 'public' + req.body.url_del
+  console.log(url_del)
+  if(fs.existsSync(url_del)){
+    fs.unlinkSync(url_del)
+  }
+  res.redirect('back')
+});
+// ================================end ckeditor
 
 // var csrfProtection = csrf();
 
 // router.use(csrfProtection);
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var successMsg = req.flash('success')[0];
+  // Option.findOne({ '_id': '5a04f42dc2810309b4e760af' },function(err, opt){
+  //   console.log(opt);
+  //   res.render('shop/index', { title: 'Shopping Cart HK1992', opt:opt, successMsg: successMsg, noMessages: !successMsg});
+  // });
+  // mongo.connect(url, function(err, db) {
+  //   var dboption = db.collection('options').find( { "_id": "5a04f42dc2810309b4e760af" } );
+  //   console.log(dboption);
+  // });
+
   Product.find(function(err,docs){
       var productChunks = [];
-      var chunkSize = 2;
+      var chunkSize = 4;
       for(var i=0;i < docs.length;i += chunkSize){
         productChunks.push(docs.slice(i,i+chunkSize));
       }
-      res.render('shop/index', { title: 'Shopping Cart HK1992',products:productChunks, successMsg: successMsg, noMessages: !successMsg});
+      Option.findOne({ '_id': '5a04f42dc2810309b4e760af' },function(err, opt){
+        console.log(opt);
+        res.render('shop/index', { title: 'Shopping Cart HK1992', products:productChunks, opt:opt, successMsg: successMsg, noMessages: !successMsg});
+      });
   });
 });
+
 
 router.get('/add-to-cart/:id', function(req, res, next){
   var productId = req.params.id;
@@ -99,7 +181,7 @@ router.post('/checkout', isLoggedIn, function(req, res, next){
       cart: cart,
       address: req.body.address,
       name: req.body.name,
-      paymentId: charge.id
+      paymentId: charge.id,
     });
     order.save(function(err, result){
       req.flash('success', 'Mua sản phẩm thành công!');
@@ -111,38 +193,15 @@ router.post('/checkout', isLoggedIn, function(req, res, next){
     res.redirect('/');
   });
 });
-// router.get('/', function(req, res, next) {
-//   res.render('shop/index', { title: 'Shopping Cart HK1992'});
-// });
+// ========================================================================================= page product
 
-// router.get('/user/signup', function(req, res, next){
-//   var messages = req.flash('error');
-//   res.render('user/signup', {csrfToken:req.csrfToken(),messages:messages,hasErrors:messages.length > 0});
-// });
+router.get('/alias', function(req, res, next){
 
-// router.post('/user/signup', passport.authenticate('local.signup', {
-//   successRedirect: '/user/profile',
-//   failureRedirect: '/user/signup',
-//   failureFlash: true
-// }));
+});
 
-// router.get('/user/signin', function(req, res, next){
-//   var messages = req.flash('error');
-//   res.render('user/signin', {csrfToken:req.csrfToken(),messages:messages,hasErrors:messages.length > 0});
-// });
-
-// router.post('/user/signin', passport.authenticate('local.signin', {
-//   successRedirect: '/user/profile',
-//   failureRedirect: '/user/signin',
-//   failureFlash: true
-// }));
-
-// router.get('/user/profile', function(req, res, next){
-//   res.render('user/profile');
-// });
+// =========================================================================================end page product
 
 module.exports = router;
- 
 function isLoggedIn(req, res, next){
   if(req.isAuthenticated()){
       return next();
@@ -150,4 +209,3 @@ function isLoggedIn(req, res, next){
   req.session.oldUrl = req.url;
   res.redirect('/user/signin');
 }
-

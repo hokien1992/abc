@@ -1,0 +1,62 @@
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">Danh sách sản phẩm</a> </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="widget-box">
+          <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>Static table with checkboxes in box with padding</h5>
+            <span class="label label-info">Featured</span> </div>
+          <div class="widget-content ">
+            <table class="table table-bordered table-striped with-check">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" /></th>
+                  <th>Ảnh</th>
+                  <th>Tên</th>
+                  <th>Danh mục</th>
+                  <th>Trạng thái</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{# each products}}
+                  {{# each this}}
+                  <tr>
+                    <td><input type="checkbox" /></td>
+                    <td width="10%"><img src="{{ this.imagePath }}" alt=""></td>
+                    <td>{{this.title}}</td>
+                    <td>{{ this.catproduct.title }}</td>
+                    <td width="8%">
+                        <div class="controls">
+                          <label>
+                            <input type="checkbox" name="position" />
+                          </label>
+                        </div>
+                    </td>
+                    <td width="12%">
+                      <div class="btn-group">
+                          <button class="btn btn-success">Hành động</button>
+                          <button data-toggle="dropdown" class="btn btn-success dropdown-toggle"><span class="caret"></span></button>
+                          <ul class="dropdown-menu">
+                          <li><a target="_bank" href="#"><i class="icon-eye-open"></i> Xem chi tiết</a></li>
+                          <li><a href="editProduct/{{ this._id }}"><i class="icon-edit"></i> Sửa</a></li>
+                          <li class="divider"></li>
+                          <li><a href="deleteProduct/{{ this._id }}"><i class="icon-remove"></i> Xóa</a></li>
+                          {{!-- <li><form action="/deleteOne/{{ this.id }}"><button type="submit"><i class="icon-remove"></i> Xóa</button></form></li> --}}
+                          </ul>
+                      </div>
+                    </td>
+                  </tr>
+                  {{/each}}
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

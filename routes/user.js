@@ -20,7 +20,6 @@ router.get('/profile', isLoggedIn, function(req, res, next){
         });
         res.render('user/profile', { orders: orders });
     });
-    // res.render('user/profile');
 });
 
 router.get('/logout', isLoggedIn, function(req, res, next){

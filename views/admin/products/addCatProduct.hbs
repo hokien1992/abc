@@ -1,0 +1,89 @@
+<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="/ckeditor/adapters/jquery.js"></script>
+<div id="content">
+    <div id="content-header">
+        <div id="breadcrumb"> 
+            <a href="admin/index" title="Go to Home" class="tip-bottom">
+                <i class="icon-home"></i> Home
+            </a> 
+            <a href="#" class="tip-bottom">Danh mục sản phẩm</a>
+        </div>
+    </div>
+    
+    <form action="/admin/addCatProduct?_csrf={{ csrfToken }}" method="post" class="form-horizontal" enctype="multipart/form-data">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="col-xs-12 widget-content nopadding">
+                            <input type="text" class="hidden" name="_csrf" value="{{ csrfToken }}">
+                            <div class="control-group">
+                                <label class="control-label">Tên sản phẩm</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" placeholder="Tên sản phẩm" name="title" id="title"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Alias</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" placeholder="Alias" name="alias" id="alias"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Ảnh đại diện</label>
+                                <div class="controls">
+                                    <input type="file" name="file" class="file" id="file"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Chọn danh mục cha</label>
+                                <div class="" style="width:50%;">
+                                    <div class="controls">
+                                        <select name="id_category">
+                                            <option value="0">First option</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="control-group">
+                                <label class="control-label">Mô tả ngắn</label>
+                                <div class="controls" >
+                                     <textarea class="span11 description" placeholder="Mô tả ngắn" name="description" id="description"></textarea>
+                                </div>
+                            </div>
+                            <div class="control-label form-actions">
+                                <button type="submit" class="btn btn-success">Cập nhật</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+
+    $('#title').on('input', function(e){
+        e.preventDefault();
+        console.log(e.target.value);
+        console.log(this.value);
+        $('#alias').val(slugify(this.value));
+    });
+
+
+    CKEDITOR.replace('detail', {
+        "extraPlugins" : "imagebrowser",
+        "imageBrowser_listUrl" : "/files"
+    });
+    CKEDITOR.replace( 'description', {
+        toolbar: [
+            { name: 'document', items: [ 'Source', '-', 'NewPage', 'Preview', '-', 'Templates' ] },	// Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
+            [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ],			// Defines toolbar group without name.
+            '/',																					// Line break - next group will be placed in new line.
+            { name: 'basicstyles', items: [ 'Bold', 'Italic' ] }
+        ]
+    });
+
+</script>

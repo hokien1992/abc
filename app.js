@@ -16,19 +16,27 @@ var flash = require('connect-flash');
 var validator = require('express-validator');
 var MongoStore = require('connect-mongo')(session);
 
+
+
 var index = require('./routes/index');
 var userRoutes = require('./routes/user');
+var ad_userRoutes = require('./routes/ad_user');
+///==========================backend
+var adminRoutes = require('./routes/admin');
+var productRoutes = require('./routes/admin/products');
+var optionRoutes = require('./routes/admin/option');
 //var users = require('./routes/users');
 
 var app = express();
-// mongoose.connect('localhost:27017/shoppingcart');
-mongoose.connect('mongodb://admin:123456@ds227865.mlab.com:27865/shoppingcart');
+mongoose.connect('localhost:27017/shoppingcart');
 require('./config/passport');
-// view engine setup
-/*app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');*/
+
+
 app.engine('.hbs',expressHbs({defaultLayout:'layout',extname:'.hbs'}));
 app.set('view engine', '.hbs');
+
+
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -49,7 +57,9 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
+
 
 app.use(function(req, res, next){
   res.locals.login = req.isAuthenticated();
@@ -59,6 +69,10 @@ app.use(function(req, res, next){
 
 app.use('/', index);
 app.use('/user', userRoutes);
+app.use('/', ad_userRoutes);
+app.use('/admin', adminRoutes);
+app.use('/admin', productRoutes);
+app.use('/admin', optionRoutes);
 // app.use('/users', users);
 
 // catch 404 and forward to error handler
@@ -78,5 +92,4 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
 module.exports = app;
